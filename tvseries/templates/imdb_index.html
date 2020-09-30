@@ -5,41 +5,41 @@
 
 <div class="container">
     <h1>TV Series</h1>
-    <form>
-        <div class="form-group">
-            <input class="form-control" type="search" name="title" placeholder="Search..." />
-        </div>
-    </form>
+
     <div class="row">
         <div class="col-3">
-            <h5>Title</h5>
+            <form>
+                <div class="form-group">
+                    <input class="form-control" type="search" name="title" placeholder="Search..." />
+                </div>
+            </form>
         </div>
         <div class="col">
-            <h5>Prediction</h5>
+            <h5>Rating</h5>
         </div>
         <div class="col-7">
-            <h5>Overview</h5>
+            <h5>Prediction</h5>
         </div>
     </div>
-
 
     {% for tv in tvdb %}
     <div class="row">
         <div class="col-3">
             <p>
-                <a href="{% url 'imdb_detail' tv.imdb_id %}">
+                <a>
                     {{ tv.series_name }}
                 </a>
             </p>
         </div>
         <div class="col">
-            <p>{{ tv.prediction }}</p>
+            <p>{{ my_ratings|get_rating_by_imdb_id:tv.imdb_id }}</p>
         </div>
         <div class="col-7">
-            <p>{{ tv.overview }}</p>
+            <p>{{ tv.prediction }}</p>
         </div>
     </div>
     {% endfor %}
+
 
 <!-- PAGINATION -->
     {% if tvdb.has_other_pages %}

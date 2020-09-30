@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 
-from .models import Imdb, Tvdb
+from .models import Imdb, Tvdb, MyRatings
 
 
 def imdb_index(request):
@@ -12,25 +12,30 @@ def imdb_index(request):
     imdb = Imdb.objects\
         .all()\
         .values()
+
     tvdb_list = Tvdb.objects\
         .filter(series_name__icontains=title)\
-        .exclude(prediction=None)\
         .order_by('-prediction')\
         .values()
+
+    my_ratings_list = MyRatings.objects.all().values()
+
     paginator = Paginator(tvdb_list, 10)
     page_obj = paginator.get_page(page_number)
 
     context = {
         'imdb': imdb,
         'tvdb': page_obj,
-
+        'my_ratings': my_ratings_list,
     }
+
     return render(request, 'imdb_index.html', context)
 
 
 def imdb_detail(request, imdb_id):
     imdb = Imdb.objects.get(id=imdb_id)
     tvdb = Tvdb.objects.get(imdb_id=imdb_id)
+
     context = {
         'imdb': imdb,
         'tvdb': tvdb,

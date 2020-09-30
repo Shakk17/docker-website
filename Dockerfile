@@ -1,6 +1,4 @@
-FROM python:3
-
-ENV PYTHONUNBUFFERED=1
+FROM python:3.7
 
 RUN mkdir /code
 

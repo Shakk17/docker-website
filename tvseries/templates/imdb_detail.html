@@ -1,22 +1,25 @@
 {% extends "base.html" %}
 {% load custom_filters %}
-
 {% block page_content %}
-    <div class="container">
-        <h1>{{ imdb.name }}</h1>
-        <div class="row">
-            <div class="col-4">
-                <img src="{{ imdb.poster }}" alt="" class="border border-dark rounded img-fluid"/>
-            </div>
-            <div class="col-8">
-                <h5>About the project:</h5>
-                <p>{{ imdb.name }}</p>
-                <br>
-                <h5>Genres:</h5>
-                {% for name in imdb|get_genres %}
-                <button type="button" class="btn btn-primary">{{ name }}</button>
-                {% endfor %}
-            </div>
+<div class="container">
+    <h1>{{ imdb.name }}</h1>
+    <div class="row">
+        <div class="col-4">
+            <img src="{{ imdb.poster }}" alt="" class="border border-dark rounded img-fluid"/>
+        </div>
+        <div class="col-8">
+            <h5>Overview:</h5>
+            <p>{{ tvdb.overview }}</p>
+            <br>
+            <h5>Genres:</h5>
+            {% for name in imdb|get_genres %}
+            <button type="button" class="btn btn-primary">{{ name }}</button>
+            {% endfor %}
         </div>
     </div>
+    <div class="row justify-content-center">
+        <button type="button" class="btn btn-danger" onClick="history.go(-1);">Back</button>
+    </div>
+</div>
+
 {% endblock %}

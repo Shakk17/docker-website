@@ -5,7 +5,9 @@ class Imdb(models.Model):
     id = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=200)
     type = models.CharField(max_length=20)
+
     rating_avg = models.DecimalField(max_digits=2, decimal_places=2)
+
     genre_action = models.BooleanField()
     genre_sci_fi = models.BooleanField(db_column='genre_sci-fi')
     genre_mystery = models.BooleanField()
@@ -32,6 +34,7 @@ class Imdb(models.Model):
     genre_news = models.BooleanField()
     genre_adventure = models.BooleanField()
     genre_talk_show = models.BooleanField(db_column='genre_talk-show')
+
     poster = models.URLField()
 
     class Meta:
@@ -42,6 +45,9 @@ class Imdb(models.Model):
 class Tvdb(models.Model):
     imdb_id = models.CharField(max_length=20, primary_key=True)
     series_name = models.CharField(max_length=200)
+    status = models.CharField(max_length=10)
+    network = models.CharField(max_length=30)
+    runtime = models.IntegerField()
     overview = models.TextField()
     prediction = models.DecimalField(max_digits=2, decimal_places=2)
 
