@@ -61,6 +61,7 @@ def imdb_index(request):
         'my_ratings': my_ratings_list,
         'selected_genres': selected_genres,
         'sort_by': sort_by,
+        'last_page': paginator.num_pages
     }
 
     return render(request, 'imdb_index.html', context)
