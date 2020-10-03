@@ -60,13 +60,17 @@ div > #can-hover:hover {
     <div class="row mt-3">
         <div class="col-sm">
             <!-- SEARCH FORM -->
-            <form class="form-inline">
+            <form class="form-inline" method="get">
                 <label class="sr-only" for="search_input">Title</label>
                 <input class="form-control mr-1" type="search" id="search_input" name="title" placeholder="Title" />
-                <label class="sr-only" for="genre-input"></label>
-                    <select class="selectpicker mr-1" id="genre-input" multiple data-live-search="true">
+                <label class="sr-only" for="genres"></label>
+                    <select class="selectpicker mr-1" name="genres" id="genres" multiple data-live-search="true">
                         {% for genre in imdb|get_all_genres %}
-                        <option>{{ genre }}</option>
+                            {% if genre|lower in selected_genres %}
+                                <option selected>{{ genre }}</option>
+                            {% else %}
+                                <option>{{ genre }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 <button type="submit" class="btn btn-primary btn-sm">Search</button>

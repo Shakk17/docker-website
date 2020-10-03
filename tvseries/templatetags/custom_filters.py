@@ -28,7 +28,7 @@ def get_all_genres(imdb):
     genres = ['-'.join(name.split('_')[1:]).capitalize()
               for (name, value) in imdb[0].items()
               if name.startswith('genre')]
-    return genres
+    return sorted(genres)
 
 
 @register.filter
