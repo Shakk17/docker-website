@@ -54,7 +54,7 @@ class Tvdb(models.Model):
     class Meta:
         db_table = "tvdb"
         managed = False
-        ordering = ['-prediction']
+        ordering = ['imdb_id']
 
 
 class MyRatings(models.Model):

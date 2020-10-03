@@ -2,86 +2,124 @@
 {% load custom_filters %}
 {% block page_content %}
 
+<style>
+div > #can-hover:hover {
+    background-color: lightcyan;
+}
+</style>
 
 <div class="container">
     <h1>TV Series</h1>
 
     <div class="row">
-        <div class="col-3">
-            <form>
-                <div class="form-group">
-                    <input class="form-control" type="search" name="title" placeholder="Search..." />
-                </div>
-            </form>
+        <div class="col-4">
+            <h5>Title</h5>
         </div>
-        <div class="col">
+        <div class="col-1 d-flex justify-content-center">
             <h5>Rating</h5>
         </div>
-        <div class="col-7">
+        <div class="col-1 d-flex justify-content-center">
             <h5>Prediction</h5>
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+            <h5>Genres</h5>
         </div>
     </div>
 
     {% for tv in tvdb %}
-    <div class="row">
-        <div class="col-3">
-            <p>
-                <a>
+    <div class="row rounded mt-1" id="can-hover">
+        <div class="col-4">
+            <p class="my-auto">
+                <a href="/imdb/{{ tv.imdb_id }}/">
                     {{ tv.series_name }}
                 </a>
             </p>
         </div>
-        <div class="col">
-            <p>{{ my_ratings|get_rating_by_imdb_id:tv.imdb_id }}</p>
+        <div class="col-1 d-flex justify-content-center">
+            {% if my_ratings|get_rating_by_imdb_id:tv.imdb_id != None %}
+                <p class="my-auto">{{ my_ratings|get_rating_by_imdb_id:tv.imdb_id }}</p>
+            {% else %}
+                <p class="my-auto">-</p>
+            {% endif %}
+
         </div>
-        <div class="col-7">
-            <p>{{ tv.prediction }}</p>
+        <div class="col-1 d-flex justify-content-center">
+            {% if tv.prediction != None %}
+                <p class="my-auto">{{ tv.prediction }}</p>
+            {% else %}
+                <p class="my-auto">-</p>
+            {% endif %}
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+            {% for name in imdb|get_genres_by_imdb_id:tv.imdb_id %}
+            <button type="button" class="btn bg-white text-info border-info btn-sm my-auto mr-1">{{ name }}</button>
+            {% endfor %}
         </div>
     </div>
     {% endfor %}
+    <div class="row mt-3">
+        <div class="col-sm">
+            <!-- SEARCH FORM -->
+            <form class="form-inline">
+                <label class="sr-only" for="search_input">Title</label>
+                <input class="form-control mr-1" type="search" id="search_input" name="title" placeholder="Title" />
+                <label class="sr-only" for="genre-input"></label>
+                    <select class="selectpicker mr-1" id="genre-input" multiple data-live-search="true">
+                        {% for genre in imdb|get_all_genres %}
+                        <option>{{ genre }}</option>
+                        {% endfor %}
+                    </select>
+                <button type="submit" class="btn btn-primary btn-sm">Search</button>
+            </form>
+        </div>
+        <div class="col-sm">
+            <!-- PAGINATION -->
+            {% if tvdb.has_other_pages %}
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-end">
+                    {% if tvdb.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?{% url_replace request 'page' tvdb.previous_page_number %}">Previous</a>
+                        </li>
+                    {% endif %}
 
+                    {% if tvdb.number|add:'-4' > 1 %}
+                        <li class="page-item">
+                            <a class="page-link" href="?{% url_replace request 'page' tvdb.number|add:'-5' %}">&hellip;</a>
+                        </li>
+                    {% endif %}
 
-<!-- PAGINATION -->
-    {% if tvdb.has_other_pages %}
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-            {% if tvdb.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?{% url_replace request 'page' tvdb.previous_page_number %}">Previous</a>
-                </li>
+                    {% for i in tvdb.paginator.page_range %}
+                        {% if tvdb.number == i %}
+                            <li class="page-item active">
+                                <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>
+                            </li>
+                        {% elif i > tvdb.number|add:'-5' and i < tvdb.number|add:'5' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if tvdb.paginator.num_pages > tvdb.number|add:'4' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?{% url_replace request 'page' tvdb.number|add:'5' %}">&hellip;</a>
+                        </li>
+                    {% endif %}
+
+                    {% if tvdb.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?{% url_replace request 'page' tvdb.next_page_number %}">Next</a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </nav>
             {% endif %}
+        </div>
+    </div>
 
-            {% if tvdb.number|add:'-4' > 1 %}
-                <li class="page-item">
-                    <a class="page-link" href="?{% url_replace request 'page' tvdb.number|add:'-5' %}">&hellip;</a>
-                </li>
-            {% endif %}
 
-            {% for i in tvdb.paginator.page_range %}
-                {% if tvdb.number == i %}
-                    <li class="page-item active">
-                        <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>
-                    </li>
-                {% elif i > tvdb.number|add:'-5' and i < tvdb.number|add:'5' %}
-                    <li class="page-item">
-                        <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
 
-            {% if tvdb.paginator.num_pages > tvdb.number|add:'4' %}
-                <li class="page-item">
-                    <a class="page-link" href="?{% url_replace request 'page' tvdb.number|add:'5' %}">&hellip;</a>
-                </li>
-            {% endif %}
 
-            {% if tvdb.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?{% url_replace request 'page' tvdb.next_page_number %}">Next</a>
-                </li>
-            {% endif %}
-            </ul>
-        </nav>
-    {% endif %}
 </div>
 {% endblock %}

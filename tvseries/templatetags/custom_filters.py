@@ -18,16 +18,36 @@ def get_n_pages(array):
 
 @register.simple_tag
 def url_replace(request, field, value):
-
     dict_ = request.GET.copy()
-
     dict_[field] = value
-
     return dict_.urlencode()
 
 
 @register.filter
-def get_genres(item):
-    vars_dict = vars(item)
-    genres = ['-'.join(name.split('_')[1:]).capitalize() for (name, value) in vars_dict.items() if name.startswith('genre') and value == 1]
+def get_all_genres(imdb):
+    genres = ['-'.join(name.split('_')[1:]).capitalize()
+              for (name, value) in imdb[0].items()
+              if name.startswith('genre')]
     return genres
+
+
+@register.filter
+def get_genres(item):
+    """Returns a list containing all the genres of an IMDb series."""
+    vars_dict = vars(item)
+    genres = ['-'.join(name.split('_')[1:]).capitalize()
+              for (name, value) in vars_dict.items()
+              if name.startswith('genre') and value == 1]
+    return sorted(genres)
+
+
+@register.filter
+def get_genres_by_imdb_id(imdb_list, imdb_id):
+    item = next((item for item in imdb_list if item["id"] == imdb_id), None)
+    try:
+        genres = ['-'.join(name.split('_')[1:]).capitalize()
+                  for (name, value) in item.items()
+                  if name.startswith('genre') and value == 1]
+    except AttributeError:
+        genres = []
+    return sorted(genres)

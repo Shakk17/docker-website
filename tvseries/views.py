@@ -15,7 +15,7 @@ def imdb_index(request):
 
     tvdb_list = Tvdb.objects\
         .filter(series_name__icontains=title)\
-        .order_by('-prediction')\
+        .order_by('-prediction', 'imdb_id')\
         .values()
 
     my_ratings_list = MyRatings.objects.all().values()
