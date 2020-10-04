@@ -1,5 +1,6 @@
 asgiref
 Django
+django-heroku
 psycopg2-binary
 pytz
 sqlparse
