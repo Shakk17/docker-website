@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['django_secret_key']
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get('DEBUG', default=0))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'docker-website.herokuapp.com']
 
 # Application definition
 
@@ -77,7 +77,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dbmrd7mciglg4p',
         'USER': 'luvcuvmmezassr',
-        'PASSWORD': os.environ['db_password'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
         'HOST': 'ec2-46-137-84-140.eu-west-1.compute.amazonaws.com',
         'PORT': 5432,
     },
@@ -118,8 +118,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-# Configure Django App for Heroku.
-import django_heroku
-django_heroku.settings(locals())
