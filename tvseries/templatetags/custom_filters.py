@@ -49,6 +49,9 @@ def get_genres_by_imdb_id(imdb_list, imdb_id):
         genres = ['-'.join(name.split('_')[1:]).capitalize()
                   for (name, value) in item.items()
                   if name.startswith('genre') and value == 1]
+        genres = sorted(genres)
+        if len(genres) > 3:
+            genres = genres[:3] + [f'+{len(genres)-3}']
     except AttributeError:
         genres = []
-    return sorted(genres)
+    return genres

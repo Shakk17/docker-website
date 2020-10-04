@@ -12,24 +12,24 @@ div > #can-hover:hover {
     <h1>TV Series</h1>
 
     <div class="row">
-        <div class="col-4">
+        <div class="col-4 d-flex align-items-center">
             <h5>Title</h5>
         </div>
-        <div class="col-1 d-flex justify-content-center">
+        <div class="col-1 d-flex justify-content-center align-items-center">
             {% if sort_by == 'rating_desc' %}
-                <h5><a href="?{% url_replace request 'sort_by' 'rating_asc' %}">Rating</a></h5>
+                <h5><a href="?{% url_replace request 'sort_by' 'rating_asc' %}">My rat.</a></h5>
             {% else %}
-                <h5><a href="?{% url_replace request 'sort_by' 'rating_desc' %}">Rating</a></h5>
+                <h5><a href="?{% url_replace request 'sort_by' 'rating_desc' %}">My rat.</a></h5>
             {% endif %}
         </div>
-        <div class="col-1 d-flex justify-content-center">
+        <div class="col-1 d-flex justify-content-center align-items-center">
             {% if sort_by == 'prediction_desc' %}
-                <h5><a href="?{% url_replace request 'sort_by' 'prediction_asc' %}">Prediction</a></h5>
+                <h5><a href="?{% url_replace request 'sort_by' 'prediction_asc' %}">Pred.</a></h5>
             {% else %}
-                <h5><a href="?{% url_replace request 'sort_by' 'prediction_desc' %}">Prediction</a></h5>
+                <h5><a href="?{% url_replace request 'sort_by' 'prediction_desc' %}">Pred.</a></h5>
             {% endif %}
         </div>
-        <div class="col-6 d-flex justify-content-center">
+        <div class="col-6 d-flex justify-content-center align-items-center">
             <h5>Genres</h5>
         </div>
     </div>
