@@ -49,7 +49,6 @@ def imdb_index(request):
         for i, item in enumerate(tvdb_list):
             tvdb_list[i]['my_rating'] = next((x['my_rating'] for x in my_ratings_list if item["imdb_id"] == x['imdb_id']), None)
         tvdb_list = list(filter(lambda x: x['my_rating'] is not None, tvdb_list))
-        print(tvdb_list[:2])
         tvdb_list = sorted(tvdb_list, key=lambda x: x['my_rating'], reverse='asc' not in sort_by)
 
     paginator = Paginator(tvdb_list, 10)
