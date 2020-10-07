@@ -2,6 +2,10 @@
 {% load custom_filters %}
 {% block page_content %}
 
+<title>
+    Tv Series Predictor
+</title>
+
 <style>
 div > #can-hover:hover {
     background-color: lightcyan;
@@ -17,16 +21,24 @@ div > #can-hover:hover {
         </div>
         <div class="col-1 d-flex justify-content-center align-items-center">
             {% if sort_by == 'rating_desc' %}
-                <h5><a href="?{% url_replace request 'sort_by' 'rating_asc' %}">My rat.</a></h5>
+                <h5 data-toggle="tooltip" data-placement="top" title="My ratings">
+                    <a href="?{% url_replace request 'sort_by' 'rating_asc' %}">My rat.</a>
+                </h5>
             {% else %}
-                <h5><a href="?{% url_replace request 'sort_by' 'rating_desc' %}">My rat.</a></h5>
+                <h5 data-toggle="tooltip" data-placement="top" title="My ratings">
+                    <a href="?{% url_replace request 'sort_by' 'rating_desc' %}">My rat.</a>
+                </h5>
             {% endif %}
         </div>
         <div class="col-1 d-flex justify-content-center align-items-center">
             {% if sort_by == 'prediction_desc' %}
-                <h5><a href="?{% url_replace request 'sort_by' 'prediction_asc' %}">Pred.</a></h5>
+                <h5 data-toggle="tooltip" data-placement="top" title="Prediction">
+                    <a href="?{% url_replace request 'sort_by' 'prediction_asc' %}">Pred.</a>
+                </h5>
             {% else %}
-                <h5><a href="?{% url_replace request 'sort_by' 'prediction_desc' %}">Pred.</a></h5>
+                <h5 data-toggle="tooltip" data-placement="top" title="Prediction">
+                    <a href="?{% url_replace request 'sort_by' 'prediction_desc' %}">Pred.</a>
+                </h5>
             {% endif %}
         </div>
         <div class="col-6 d-flex justify-content-center align-items-center">
