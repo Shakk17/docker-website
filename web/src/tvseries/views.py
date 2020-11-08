@@ -63,7 +63,7 @@ def imdb_index(request):
         'last_page': paginator.num_pages
     }
 
-    return render(request, 'imdb_index.html', context)
+    return render(request, 'templates/imdb_index.html', context)
 
 
 def imdb_detail(request, imdb_id):
@@ -74,4 +74,4 @@ def imdb_detail(request, imdb_id):
         'imdb': imdb,
         'tvdb': tvdb,
     }
-    return render(request, 'imdb_detail.html', context)
+    return render(request, 'templates/imdb_detail.html', context)

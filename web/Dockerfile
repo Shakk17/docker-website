@@ -1,31 +1,24 @@
 # Pull official base image.
-FROM python:3.8-alpine
+FROM python:3.7
 
 # Set work directory.
-WORKDIR /app
+WORKDIR /code
 
 # Set environmental variables.
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONBUFFERED 1
-ENV DEBUG 0
-
-# Install psycopg2.
-RUN apk update \
-    && apk add --virtual build-deps gcc python3-dev musl-dev \
-    && apk add postgresql-dev \
-    && pip install psycopg2 \
-    && apk del build-deps
+ENV DEBUG 1
 
 # Install dependencies.
-COPY ./requirements.txt .
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy project.
-COPY . .
+COPY src .
 
 # Add and run as non-root user.
-RUN adduser -D myuser
-USER myuser
+# RUN adduser -D myuser
+# USER myuser
 
 # Run gunicorn.
 CMD gunicorn website.wsgi:application --bind 0.0.0.0:$PORT
