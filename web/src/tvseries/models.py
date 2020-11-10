@@ -7,6 +7,7 @@ class Imdb(models.Model):
     type = models.CharField(max_length=20)
 
     rating_avg = models.DecimalField(max_digits=2, decimal_places=2)
+    prediction = models.FloatField(db_column='prediction')
 
     genre_action = models.BooleanField()
     genre_sci_fi = models.BooleanField(db_column='genre_sci-fi')
@@ -40,21 +41,6 @@ class Imdb(models.Model):
     class Meta:
         db_table = "imdb"
         managed = False
-
-
-class Tvdb(models.Model):
-    imdb_id = models.CharField(max_length=20, primary_key=True)
-    series_name = models.CharField(max_length=200)
-    status = models.CharField(max_length=10)
-    network = models.CharField(max_length=30)
-    runtime = models.IntegerField()
-    overview = models.TextField()
-    prediction = models.DecimalField(max_digits=2, decimal_places=2)
-
-    class Meta:
-        db_table = "tvdb"
-        managed = False
-        ordering = ['imdb_id']
 
 
 class MyRatings(models.Model):

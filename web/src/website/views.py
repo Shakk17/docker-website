@@ -1,6 +1,5 @@
-from django.http import JsonResponse
+from django.http import HttpResponse
 
 
-def ping(request):
-    data = {'ping': 'pong!'}
-    return JsonResponse(data)
+def index(request):
+    return HttpResponse("Hello, world. Sup.")

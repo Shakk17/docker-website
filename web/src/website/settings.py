@@ -54,7 +54,7 @@ ROOT_URLCONF = 'website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["website/templates/"],
+        'DIRS': ["templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,16 +72,28 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbmrd7mciglg4p',
-        'USER': 'luvcuvmmezassr',
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': 'ec2-46-137-84-140.eu-west-1.compute.amazonaws.com',
-        'PORT': 5432,
-    },
-}
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'dbmrd7mciglg4p',
+            'USER': 'luvcuvmmezassr',
+            'PASSWORD': os.environ['DB_PASSWORD'],
+            'HOST': 'ec2-46-137-84-140.eu-west-1.compute.amazonaws.com',
+            'PORT': 5432,
+        },
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django_postgres_extensions.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': os.environ['LOCAL_POSTGRES_PASSWORD'],
+            'HOST': 'localhost',
+            'PORT': 5432,
+        },
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

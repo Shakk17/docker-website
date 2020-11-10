@@ -2,11 +2,6 @@ from django.template.defaulttags import register
 
 
 @register.filter
-def get_prediction_by_imdb_id(tvdb_list, imdb_id):
-    return next((item['prediction'] for item in tvdb_list if item["imdb_id"] == imdb_id), None)
-
-
-@register.filter
 def get_rating_by_imdb_id(my_ratings_list, imdb_id):
     item = next((item for item in my_ratings_list if item["imdb_id"] == imdb_id), None)
     return item['my_rating']

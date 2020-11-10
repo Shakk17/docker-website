@@ -46,18 +46,18 @@ div > #can-hover:hover {
         </div>
     </div>
 
-    {% for tv in tvdb %}
+    {% for tv in imdb %}
     <div class="row rounded mt-1" id="can-hover">
         <div class="col-4 d-flex">
             <p class="my-auto">
-                <a href="/imdb/{{ tv.imdb_id }}/">
-                    {{ tv.series_name }}
+                <a href="/imdb/{{ tv.id }}/">
+                    {{ tv.name }}
                 </a>
             </p>
         </div>
         <div class="col-1 d-flex justify-content-center">
-            {% if my_ratings|get_rating_by_imdb_id:tv.imdb_id != None %}
-                <p class="my-auto">{{ my_ratings|get_rating_by_imdb_id:tv.imdb_id }}</p>
+            {% if my_ratings|get_rating_by_imdb_id:tv.id != None %}
+                <p class="my-auto">{{ my_ratings|get_rating_by_imdb_id:tv.id }}</p>
             {% else %}
                 <p class="my-auto">-</p>
             {% endif %}
@@ -71,7 +71,7 @@ div > #can-hover:hover {
             {% endif %}
         </div>
         <div class="col-6 d-flex justify-content-center">
-            {% for name in imdb|get_genres_by_imdb_id:tv.imdb_id %}
+            {% for name in imdb|get_genres_by_imdb_id:tv.id %}
             <button type="button" class="btn bg-white text-info border-info btn-sm my-auto mr-1">{{ name }}</button>
             {% endfor %}
         </div>
@@ -98,40 +98,40 @@ div > #can-hover:hover {
         </div>
         <div class="col-sm">
             <!-- PAGINATION -->
-            {% if tvdb.has_other_pages %}
+            {% if imdb.has_other_pages %}
                 <nav aria-label="Page navigation">
                     <ul class="pagination justify-content-end">
-                    {% if tvdb.has_previous %}
+                    {% if imdb.has_previous %}
                         <li class="page-item">
                             <a class="page-link" href="?{% url_replace request 'page' 1 %}">First</a>
                         </li>
                     {% endif %}
 
-                    {% if tvdb.number|add:'-4' > 1 %}
+                    {% if imdb.number|add:'-4' > 1 %}
                         <li class="page-item">
-                            <a class="page-link" href="?{% url_replace request 'page' tvdb.number|add:'-5' %}">&hellip;</a>
+                            <a class="page-link" href="?{% url_replace request 'page' imdb.number|add:'-5' %}">&hellip;</a>
                         </li>
                     {% endif %}
 
-                    {% for i in tvdb.paginator.page_range %}
-                        {% if tvdb.number == i %}
+                    {% for i in imdb.paginator.page_range %}
+                        {% if imdb.number == i %}
                             <li class="page-item active">
                                 <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>
                             </li>
-                        {% elif i > tvdb.number|add:'-5' and i < tvdb.number|add:'5' %}
+                        {% elif i > imdb.number|add:'-5' and i < imdb.number|add:'5' %}
                             <li class="page-item">
                                 <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>
                             </li>
                         {% endif %}
                     {% endfor %}
 
-                    {% if tvdb.paginator.num_pages > tvdb.number|add:'4' %}
+                    {% if imdb.paginator.num_pages > imdb.number|add:'4' %}
                         <li class="page-item">
-                            <a class="page-link" href="?{% url_replace request 'page' tvdb.number|add:'5' %}">&hellip;</a>
+                            <a class="page-link" href="?{% url_replace request 'page' imdb.number|add:'5' %}">&hellip;</a>
                         </li>
                     {% endif %}
 
-                    {% if tvdb.has_next %}
+                    {% if imdb.has_next %}
                         <li class="page-item">
                             <a class="page-link" href="?{% url_replace request 'page' last_page %}">Last</a>
                         </li>
@@ -141,8 +141,6 @@ div > #can-hover:hover {
             {% endif %}
         </div>
     </div>
-
-
 
 
 </div>
