@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% load custom_filters %}
 {% block page_content %}
+{% load custom_filters %}
 
 <title>
     Tv Series Predictor
@@ -50,7 +50,7 @@ div > #can-hover:hover {
     <div class="row rounded mt-1" id="can-hover">
         <div class="col-4 d-flex">
             <p class="my-auto">
-                <a href="/imdb/{{ tv.id }}/">
+                <a href="/tv/{{ tv.id }}/">
                     {{ tv.name }}
                 </a>
             </p>

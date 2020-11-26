@@ -21,5 +21,5 @@ from website.views import index
 urlpatterns = [
     path('', index),
     path('admin/', admin.site.urls),
-    path("tvseries/", include("tvseries.urls")),
+    path("tv/", include("tv.urls")),
 ]

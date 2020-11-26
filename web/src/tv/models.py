@@ -7,7 +7,7 @@ class Imdb(models.Model):
     type = models.CharField(max_length=20)
 
     rating_avg = models.DecimalField(max_digits=2, decimal_places=2)
-    prediction = models.FloatField(db_column='prediction')
+    prediction = models.DecimalField(max_digits=2, decimal_places=2)
 
     genre_action = models.BooleanField()
     genre_sci_fi = models.BooleanField(db_column='genre_sci-fi')
