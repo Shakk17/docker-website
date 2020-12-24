@@ -16,7 +16,7 @@ RUN pip install -r requirements.txt
 # Copy project.
 COPY src .
 
-# Add and run as non-root user.
+# Add and run as non-root user. (if alpine)
 # RUN adduser -D myuser
 # USER myuser
 
