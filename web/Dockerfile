@@ -1,5 +1,5 @@
 # Pull official base image.
-FROM python:3.7
+FROM python:3.8-alpine
 
 # Set work directory.
 WORKDIR /code
