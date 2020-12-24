@@ -1,5 +1,5 @@
 # Pull official base image.
-FROM python:3.8-alpine
+FROM python:3.7
 
 # Set work directory.
 WORKDIR /code
@@ -10,7 +10,7 @@ ENV PYTHONBUFFERED 1
 ENV DEBUG 0
 
 # Install dependencies.
-COPY requirements.txt .
+COPY web/requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy project.
