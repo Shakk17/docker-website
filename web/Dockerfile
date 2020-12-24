@@ -17,8 +17,8 @@ RUN pip install -r requirements.txt
 COPY src .
 
 # Add and run as non-root user.
-RUN adduser -D myuser
-USER myuser
+# RUN adduser -D myuser
+# USER myuser
 
 # Run gunicorn.
 CMD gunicorn website.wsgi:application --bind 0.0.0.0:$PORT
