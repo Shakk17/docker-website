@@ -10,7 +10,7 @@ ENV PYTHONBUFFERED 1
 ENV DEBUG 0
 
 # Install dependencies.
-COPY web/requirements.txt .
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy project.
