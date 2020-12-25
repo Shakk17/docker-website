@@ -3,7 +3,8 @@
 {% block page_content %}
 <title>{{ imdb.name }}</title>
 <div class="container">
-    <h1>{{ imdb.name }}</h1>
+    <h1>{{ imdb.name }} ({{ imdb.start_year }} -
+        {% if imdb.end_year %}{{  imdb.end_year }}{% endif %})</h1>
     <div class="row">
         <div class="col-4">
             <img src="{{ imdb.poster }}" alt="" class="border border-dark rounded img-fluid"/>
@@ -11,14 +12,15 @@
         <div class="col-8">
             <h5>Overview:</h5>
             <p>{{ imdb.overview }}</p>
-            <br>
             <h5>Genres:</h5>
             <p>
             {% for name in imdb|get_genres %}
             <button type="button" class="btn btn-primary">{{ name }}</button>
             {% endfor %}
             </p>
-            <br>
+            <h5>Seasons:</h5> <p>{{ imdb.n_seasons }}</p>
+            <h5>Episodes:</h5> <p>{{ imdb.n_episodes }}</p>
+            <h5>Episode length:</h5> <p>{{ imdb.ep_length }}</p>
             <p>
                 <a href="https://www.imdb.com/title/{{ imdb.id }}/" target="_blank">
                     <img src="https://dyncdn.me/static/20/img/imdb3.png" alt="IMDb button">
