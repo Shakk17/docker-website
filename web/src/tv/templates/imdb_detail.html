@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load custom_filters %}
 {% block page_content %}
+<title>{{ imdb.name }}</title>
 <div class="container">
     <h1>{{ imdb.name }}</h1>
     <div class="row">
@@ -9,12 +10,20 @@
         </div>
         <div class="col-8">
             <h5>Overview:</h5>
-            <p>Empty</p>
+            <p>{{ imdb.overview }}</p>
             <br>
             <h5>Genres:</h5>
+            <p>
             {% for name in imdb|get_genres %}
             <button type="button" class="btn btn-primary">{{ name }}</button>
             {% endfor %}
+            </p>
+            <br>
+            <p>
+                <a href="https://www.imdb.com/title/{{ imdb.id }}/" target="_blank">
+                    <img src="https://dyncdn.me/static/20/img/imdb3.png" alt="IMDb button">
+                </a>
+            </p>
         </div>
     </div>
     <div class="row justify-content-center">
