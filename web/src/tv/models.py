@@ -6,7 +6,8 @@ class Imdb(models.Model):
     name = models.CharField(max_length=200)
     type = models.CharField(max_length=20)
     overview = models.CharField(max_length=1000)
-    
+    start_year = models.IntegerField()
+
     rating_avg = models.DecimalField(max_digits=2, decimal_places=2)
     prediction = models.DecimalField(max_digits=2, decimal_places=2)
 
