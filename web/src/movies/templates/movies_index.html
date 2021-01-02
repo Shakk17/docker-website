@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block page_content %}
+{% load custom_filters %}
+
+<title>
+    Movies Recommender
+</title>
+
+<style>
+div > #can-hover:hover {
+    background-color: lightcyan;
+}
+</style>
+
+<div class="container">
+    <h1>Movies</h1>
+
+    <div class="row">
+        <div class="col-4 d-flex align-items-center">
+            <h5>Title</h5>
+        </div>
+        <div class="col-1 d-flex justify-content-center align-items-center">
+            {% if sort_by == 'rating_desc' %}
+                <h5 data-toggle="tooltip" data-placement="top" title="My ratings">
+                    <a href="?{% url_replace request 'sort_by' 'rating_asc' %}">My rat.</a>
+                </h5>
+            {% else %}
+                <h5 data-toggle="tooltip" data-placement="top" title="My ratings">
+                    <a href="?{% url_replace request 'sort_by' 'rating_desc' %}">My rat.</a>
+                </h5>
+            {% endif %}
+        </div>
+        <div class="col-1 d-flex justify-content-center align-items-center">
+            {% if sort_by == 'prediction_desc' %}
+                <h5 data-toggle="tooltip" data-placement="top" title="Prediction">
+                    <a href="?{% url_replace request 'sort_by' 'prediction_asc' %}">Pred.</a>
+                </h5>
+            {% else %}
+                <h5 data-toggle="tooltip" data-placement="top" title="Prediction">
+                    <a href="?{% url_replace request 'sort_by' 'prediction_desc' %}">Pred.</a>
+                </h5>
+            {% endif %}
+        </div>
+        <div class="col-6 d-flex justify-content-center align-items-center">
+            <h5>Genres</h5>
+        </div>
+    </div>
+
+    {% for tv in imdb %}
+    <div class="row rounded mt-1" id="can-hover">
+        <div class="col-4 d-flex">
+            <p class="my-auto">
+                <a href="/movies/{{ tv.id }}/">{{ tv.name }}</a>
+                <span>({{ tv.year }})</span>
+            </p>
+        </div>
+        <div class="col-1 d-flex justify-content-center">
+            {% if my_ratings|get_rating_by_imdb_id:tv.id != None %}
+                <p class="my-auto">{{ my_ratings|get_rating_by_imdb_id:tv.id }}</p>
+            {% else %}
+                <p class="my-auto">-</p>
+            {% endif %}
+
+        </div>
+        <div class="col-1 d-flex justify-content-center">
+            {% if tv.prediction != None %}
+                <p class="my-auto">{{ tv.prediction }}</p>
+            {% else %}
+                <p class="my-auto">-</p>
+            {% endif %}
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+            {% for name in imdb|get_genres_by_imdb_id:tv.id %}
+            <button type="button" class="btn bg-white text-info border-info btn-sm my-auto mr-1">{{ name }}</button>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    <div class="row mt-3">
+        <div class="col-sm">
+            <!-- SEARCH FORM -->
+            <form class="form-inline" method="get">
+                <label class="sr-only" for="search_input">Title</label>
+                <input class="form-control mr-1" type="search" id="search_input" name="title" placeholder="Title" />
+                <label class="sr-only" for="genres"></label>
+                    <select class="selectpicker mr-1" name="genres" id="genres" multiple data-live-search="true">
+                        {% for genre in imdb|get_all_genres %}
+                            {% if genre|lower in selected_genres %}
+                                <option selected>{{ genre }}</option>
+                            {% else %}
+                                <option>{{ genre }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                <button type="submit" class="btn btn-primary btn-sm">Search</button>
+            </form>
+        </div>
+        <div class="col-sm">
+            <!-- PAGINATION -->
+            {% if imdb.has_other_pages %}
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-end">
+                    {% if imdb.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?{% url_replace request 'page' 1 %}">First</a>
+                        </li>
+                    {% endif %}
+
+                    {% if imdb.number|add:'-4' > 1 %}
+                        <li class="page-item">
+                            <a class="page-link" href="?{% url_replace request 'page' imdb.number|add:'-5' %}">&hellip;</a>
+                        </li>
+                    {% endif %}
+
+                    {% for i in imdb.paginator.page_range %}
+                        {% if imdb.number == i %}
+                            <li class="page-item active">
+                                <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>
+                            </li>
+                        {% elif i > imdb.number|add:'-5' and i < imdb.number|add:'5' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if imdb.paginator.num_pages > imdb.number|add:'4' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?{% url_replace request 'page' imdb.number|add:'5' %}">&hellip;</a>
+                        </li>
+                    {% endif %}
+
+                    {% if imdb.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?{% url_replace request 'page' last_page %}">Last</a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

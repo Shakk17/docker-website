@@ -28,7 +28,6 @@ DEBUG = int(os.environ.get('DEBUG', default=0))
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'docker-website.herokuapp.com']
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tv',
+    'movies',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +79,14 @@ DATABASES = {
         'USER': 'luvcuvmmezassr',
         'PASSWORD': os.environ['DB_PASSWORD'],
         'HOST': 'ec2-46-137-84-140.eu-west-1.compute.amazonaws.com',
+        'PORT': 5432,
+    },
+    'movies': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd28ms9sp1bdder',
+        'USER': 'yfxczojypqwfac',
+        'PASSWORD': os.environ['DB_PASSWORD_MOVIES'],
+        'HOST': 'ec2-54-75-225-52.eu-west-1.compute.amazonaws.com',
         'PORT': 5432,
     },
 }

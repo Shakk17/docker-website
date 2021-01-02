@@ -22,4 +22,5 @@ urlpatterns = [
     path('', index),
     path('admin/', admin.site.urls),
     path("tv/", include("tv.urls")),
+    path("movies/", include("movies.urls")),
 ]

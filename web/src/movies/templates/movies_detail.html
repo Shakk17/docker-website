@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block page_content %}
+<title>{{ imdb.name }}</title>
+<div class="container">
+    <h1>{{ imdb.name }} ({{ imdb.year }})</h1>
+    <div class="row">
+        <div class="col-4">
+            <img src="{{ imdb.poster }}" alt="" class="border border-dark rounded img-fluid"/>
+        </div>
+        <div class="col-8">
+            <h5>Overview:</h5>
+            <p>{{ imdb.overview }}</p>
+            <h5>Genres:</h5>
+            <p>
+            {% for name in imdb|get_genres %}
+            <button type="button" class="btn btn-primary">{{ name }}</button>
+            {% endfor %}
+            </p>
+            <h5>Length:</h5> <p>{{ imdb.length }} min</p>
+            <p>
+                <a href="https://www.imdb.com/title/{{ imdb.url }}/" target="_blank">
+                    <img src="https://dyncdn.me/static/20/img/imdb3.png" alt="IMDb button">
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <button type="button" class="btn btn-danger" onClick="history.go(-1);">Back</button>
+    </div>
+</div>
+
+{% endblock %}
