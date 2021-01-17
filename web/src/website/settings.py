@@ -63,6 +63,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{
+                'tv_filters': 'tv.templatetags.tv_filters',
+                'movies_filters': 'movies.templatetags.movies_filters',
+            }
         },
     },
 ]

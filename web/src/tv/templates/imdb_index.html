@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load tv_filters %}
 {% block page_content %}
-{% load custom_filters %}
+
 
 <title>
     Tv Series Recommender
@@ -41,7 +42,10 @@ div > #can-hover:hover {
                 </h5>
             {% endif %}
         </div>
-        <div class="col-6 d-flex justify-content-center align-items-center">
+        <div class="col-1 d-flex align-items-center">
+            <h5>Length</h5>
+        </div>
+        <div class="col-5 d-flex justify-content-center align-items-center">
             <h5>Genres</h5>
         </div>
     </div>
@@ -56,7 +60,7 @@ div > #can-hover:hover {
         </div>
         <div class="col-1 d-flex justify-content-center">
             {% if my_ratings|get_rating_by_imdb_id:tv.id != None %}
-                <p class="my-auto">{{ my_ratings|get_rating_by_imdb_id:tv.id }}</p>
+                <p class="my-auto">{{ my_ratings|get_rating_by_imdb_id:tv.id }}|floatformat:2</p>
             {% else %}
                 <p class="my-auto">-</p>
             {% endif %}
@@ -64,12 +68,15 @@ div > #can-hover:hover {
         </div>
         <div class="col-1 d-flex justify-content-center">
             {% if tv.prediction != None %}
-                <p class="my-auto">{{ tv.prediction }}</p>
+                <p class="my-auto">{{ tv.prediction|floatformat:2 }}</p>
             {% else %}
                 <p class="my-auto">-</p>
             {% endif %}
         </div>
-        <div class="col-6 d-flex justify-content-center">
+        <div class="col-1 d-flex justify-content-center">
+            <p class="my-auto">{{ tv.ep_length|floatformat:0 }}</p>
+        </div>
+        <div class="col-5 d-flex justify-content-center">
             {% for name in imdb|get_genres_by_imdb_id:tv.id %}
             <button type="button" class="btn bg-white text-info border-info btn-sm my-auto mr-1">{{ name }}</button>
             {% endfor %}

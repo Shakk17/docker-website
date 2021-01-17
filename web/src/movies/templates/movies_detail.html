@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load custom_filters %}
+{% load movies_filters %}
 {% block page_content %}
 <title>{{ imdb.name }}</title>
 <div class="container">
@@ -17,7 +17,7 @@
             <button type="button" class="btn btn-primary">{{ name }}</button>
             {% endfor %}
             </p>
-            <h5>Length:</h5> <p>{{ imdb.length }} min</p>
+            <h5>Length:</h5> <p>{{ imdb.length|floatformat:0 }} min</p>
             <p>
                 <a href="https://www.imdb.com/title/{{ imdb.url }}/" target="_blank">
                     <img src="https://dyncdn.me/static/20/img/imdb3.png" alt="IMDb button">

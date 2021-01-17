@@ -13,8 +13,8 @@ class Imdb(models.Model):
     n_episodes = models.IntegerField()
     ep_length = models.IntegerField()
 
-    rating_avg = models.DecimalField(max_digits=2, decimal_places=2)
-    prediction = models.DecimalField(max_digits=2, decimal_places=2)
+    rating_avg = models.FloatField()
+    prediction = models.FloatField()
 
     genre_action = models.BooleanField()
     genre_sci_fi = models.BooleanField(db_column='genre_sci-fi')
