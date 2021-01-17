@@ -60,7 +60,7 @@ div > #can-hover:hover {
         </div>
         <div class="col-1 d-flex justify-content-center">
             {% if my_ratings|get_rating_by_imdb_id:tv.id != None %}
-                <p class="my-auto">{{ my_ratings|get_rating_by_imdb_id:tv.id }}|floatformat:2</p>
+                <p class="my-auto">{{ my_ratings|get_rating_by_imdb_id:tv.id|floatformat:0 }}</p>
             {% else %}
                 <p class="my-auto">-</p>
             {% endif %}
