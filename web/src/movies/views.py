@@ -47,7 +47,7 @@ def movies_index(request):
         imdb_list = list(filter(lambda x: x['rating'] is not None, imdb_list))
         imdb_list = sorted(imdb_list, key=lambda x: x['rating'], reverse='asc' not in sort_by)
 
-    paginator = Paginator(imdb_list, 10)
+    paginator = Paginator(imdb_list, 20)
     page_obj = paginator.get_page(page_number)
 
     context = {

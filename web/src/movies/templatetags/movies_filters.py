@@ -10,7 +10,7 @@ def get_rating_by_imdb_id(my_ratings_list, imdb_id):
 
 @register.filter
 def get_n_pages(array):
-    return int(len(array) / 10)
+    return int(len(array) / 20)
 
 
 @register.simple_tag
