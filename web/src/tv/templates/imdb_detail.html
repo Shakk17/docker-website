@@ -22,8 +22,8 @@
             <h5>Episodes:</h5> <p>{{ imdb.n_episodes }}</p>
             <h5>Episode length:</h5> <p>{{ imdb.ep_length|floatformat:0 }}</p>
             <p>
-                <span class="imdbRatingPlugin" data-user="ur100608591" data-title="tt7221388" data-style="t1">
-                <a href="https://www.imdb.com/title/{{ imdb.id }}/?ref_=tt_plg_rt">
+                <span class="imdbRatingPlugin" data-user="ur100608591" data-title="{{ imdb.id }}" data-style="t1">
+                <a href="https://www.imdb.com/title/{{ imdb.id }}/?ref_=tt_plg_rt" target="_blank">
                     <img alt="Cobra Kai (2018– ) on IMDb" src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/images/imdb_46x22.png">
                 </a>
                 </span>
