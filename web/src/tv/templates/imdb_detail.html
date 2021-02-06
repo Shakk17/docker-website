@@ -22,9 +22,17 @@
             <h5>Episodes:</h5> <p>{{ imdb.n_episodes }}</p>
             <h5>Episode length:</h5> <p>{{ imdb.ep_length|floatformat:0 }}</p>
             <p>
-                <a href="https://www.imdb.com/title/{{ imdb.id }}/" target="_blank">
-                    <img src="https://dyncdn.me/static/20/img/imdb3.png" alt="IMDb button">
+                <span class="imdbRatingPlugin" data-user="ur100608591" data-title="tt7221388" data-style="t1">
+                <a href="https://www.imdb.com/title/{{ imdb.id }}/?ref_=tt_plg_rt">
+                    <img alt="Cobra Kai (2018– ) on IMDb" src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/images/imdb_46x22.png">
                 </a>
+                </span>
+                <script>
+                (function(d,s,id){var js,stags=d.getElementsByTagName(s)[0];
+                if(d.getElementById(id)){return;}js=d.createElement(s);js.id=id;
+                js.src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/js/rating.js";
+                stags.parentNode.insertBefore(js,stags);})(document,'script','imdb-rating-api');
+                </script>
             </p>
         </div>
     </div>
