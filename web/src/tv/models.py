@@ -17,16 +17,16 @@ class Imdb(models.Model):
     prediction = models.FloatField()
 
     genre_action = models.BooleanField()
-    genre_sci_fi = models.BooleanField(db_column='genre_sci-fi')
+    genre_scifi = models.BooleanField()
     genre_mystery = models.BooleanField()
     genre_fantasy = models.BooleanField()
     genre_documentary = models.BooleanField()
     genre_music = models.BooleanField()
     genre_short = models.BooleanField()
-    genre_game_show = models.BooleanField(db_column='genre_game-show')
+    genre_gameshow = models.BooleanField()
     genre_comedy = models.BooleanField()
     genre_horror = models.BooleanField()
-    genre_reality_tv = models.BooleanField(db_column='genre_reality-tv')
+    genre_realitytv = models.BooleanField()
     genre_history = models.BooleanField()
     genre_thriller = models.BooleanField()
     genre_musical = models.BooleanField()
@@ -41,7 +41,7 @@ class Imdb(models.Model):
     genre_animation = models.BooleanField()
     genre_news = models.BooleanField()
     genre_adventure = models.BooleanField()
-    genre_talk_show = models.BooleanField(db_column='genre_talk-show')
+    genre_talkshow = models.BooleanField()
 
     poster = models.URLField()
 
