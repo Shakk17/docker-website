@@ -10,8 +10,6 @@
             <img src="{{ imdb.poster }}" alt="" class="border border-dark rounded img-fluid"/>
         </div>
         <div class="col-8">
-            <h5>Overview:</h5>
-            <p>{{ imdb.overview }}</p>
             <h5>Genres:</h5>
             <p>
             {% for name in imdb|get_genres %}

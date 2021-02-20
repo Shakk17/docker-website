@@ -5,7 +5,6 @@ class Imdb(models.Model):
     id = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=200)
     type = models.CharField(max_length=20)
-    overview = models.CharField(max_length=1000)
 
     start_year = models.IntegerField()
     end_year = models.IntegerField()
